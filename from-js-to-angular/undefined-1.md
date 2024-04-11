@@ -12,76 +12,123 @@ layout:
     visible: true
 ---
 
-# 투두리스트 - 함수 사용
+# 투두리스트 - 클래스 사용
 
-간단하게 브라우저 환경에서 자바스크립트를 사용하여 투두리스트를 만들어보며 진행해보도록 하겠습니다. 먼저 함수 기반으로 기능들을 구현하고 점진적으로 수정해보도록 할게요.
+이전에 함수 방식으로 코드들을 작성하였습니다. 하나의 파일에 작성된 코드들은 어떤 관심사에 연관된 코드 인지로 분류할 수 있을 것 같아요.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script defer src="./src/app.js"></script>
-</head>
-<body>
-    <form id="todoForm">
-        <input id="contentInput" placeholder="할 일을 입력하세요" />
-        <button>생성</button>
-    </form>
-    <ul id="todoContainer"></ul>
-</body>
-</html>
-```
+* 할일 도메인
+* DOM 이벤트, 제어
 
-웹페이지를 통해 사용자와 상호작용을 하기 위해 최소한의 구성을 이루었습니다. 어떻게 구현할까 고민하다가 변경되지 않는 입력 부분은 미리 태그들을 구성해  놓고 동적으로 리스트가 생성될 영역은 내용을 비워두었습니다. 나중에 자바스크립트를 통해 사용자 상호작용이 일어나면 동적으로 화면이 생성되게 할 생각입니다.
+이번 글에서는 할일 도메인에 대한 내용을 class 를 사용하여 코드를 캡슐화하고 필요한 기능만 노출시켜 기능이 오작동 되는 잠재적인 문제까지 개선해보도록 하겠습니다.
 
-<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+class 를 다루는 방식에 대해서는 따로 작성하지 않습니다. 인터넷에 너무 많고 좋은 강의들이 넘처나기 때문이죠.. 10분에서 30분 정도만 투자하면 되기 때문에 class 문법이 익숙하지 않다면 취향에 맞는 강의를 찾아보고 오시면 좋을 것 같아요. 아래 드림코딩에서 소개하는 이 영상 하나로도 아래 내용을 이해하는데는 문제가 없다고 생각됩니다.
 
-다음으로 자바스크립트 코드를 보도록 할게요. html 문서에 연결해주었던 index.js 파일입니다.
+{% embed url="https://www.youtube.com/watch?v=_DLhUBWsRtw" %}
+
+먼저 할일에 관련된 로직은 TodoService 라는 클래스를 만들어 캡슐화 하였습니다.
 
 ```javascript
-let todoList = [];
+class TodoService {
 
-const addTodo = (content) => {
-    if (!content) {
-        window.alert('내용을 입력해 주세요.');
-        return;
+    #todoList = [];
+    
+    getTodoList() {
+        return [...this.#todoList];
     }
 
-    const generateId = new Date().getTime().toString();
-
-    todoList.push({
-        id: generateId,
-        content,
-        finished: false,
-    });
-};
-
-const checkTodo = (id) => {
-    todoList = todoList.map((todo) => {
-        if (todo.id !== id) {
-            return todo;
+    addTodo(content) {
+        if (!content) {
+            window.alert('내용을 입력해 주세요.');
+            return;
         }
-        return { ...todo, finished: !todo.finished };
-    });
-}
+    
+        const generateId = new Date().getTime().toString();
+    
+        this.#todoList.push({
+            id: generateId,
+            content,
+            finished: false,
+        });
+    }
 
-const removeTodo = (id) => {
-    todoList = todoList.filter((todo) => todo.id !== id);
-} 
+    checkTodo(id) {
+        this.#todoList = this.#todoList.map((todo) => {
+            if (todo.id !== id) {
+                return todo;
+            }
+            return { ...todo, finished: !todo.finished };
+        });
+    }
+
+    removeTodo(id) {
+        this.#todoList = this.#todoList.filter((todo) => todo.id !== id);
+    }
+}
 ```
 
-할일이라는 데이터를 저장하기 위해 todoList 배열을 만들어주었습니다. 이후에 생성, 완료 또는 취소, 삭제 라는 행동들을 함수로 만들어주었죠.&#x20;
+클래스 바로 아래 작성된 todoList 배열에 # 키워드가 붙은 것을 볼 수 있는데요. ES10 부터 도입된 자바스크립트의 private 키워드 입니다.
 
-함수들의 공통점은 todoList라는 배열의 값을 변화시킨다는 것 입니다. 이 부분을 이용해서 todoList의 값이 변화하는 시점마다 동적으로 화면을 변화시켜주면 될 것 같아요.
+{% embed url="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Classes/Private_properties" %}
 
-작업을 하기 위해서는 먼저 html 문서에 작성된 상호작용이 필요한 요소들을 가져와서 이벤트를 감지하고 이벤트에 따라 해당 함수들을 호출하면 될 것 같아요.
+Java, C# 과 같은 객체지향 프로그래밍 언어들은 class 영역 내부의 속성 또는 메서드에 접근제한자라고 하는 키워드(public, private, protected 등)를 사용하여 외부에 공개할지 숨길지를 결정할 수 있습니다.
 
-위에 작성된 코드의 하단에 바로 작성한 내용입니다.
+아쉽게도 es10 이전에 자바스크립트의 클래스는 접근제한자 키워드가 따로 존재하지 았았으며  class의 속성, 메서드들은 모두 외부에서 접근 가능한 상태로 쓰이게 됩니다. 객체지향에서 사용되는 캡슐화 개념을 완벽하게 다루기 힘든 것이죠. <mark style="color:orange;">여기서는 연관된 기능들을 묶는것은 성공하였으나 은닉이 필요한 데이터를 숨기지 못했다는 의도로 표현하였습니다.</mark>
+
+{% embed url="https://ko.wikipedia.org/wiki/%EC%BA%A1%EC%8A%90%ED%99%94" %}
+
+물론 자바스크립트의 클로저라는 기술을 통해 숨길 값을 외부로부터 숨기고 개발자가 의도한 기술을 사용하도록 유도할 수는 있습니다.
 
 ```javascript
+class TodoService {
+    constructor() {
+        let todoList = []; // 비공개 속성
+
+        this.getTodoList = function() { // 공개 메소드
+            // 외부에서 todoList 속성에 직접 접근 못하게하기 위해
+            // 복사한새로운 배열을 반환
+            return [...todoList]; 
+        };
+    }
+}
+
+const todoService = new TodoService();
+console.log(todoService.todoList); // undefined, 외부에서 접근 불가
+console.log(todoService.getTodoList()); // []
+```
+
+위의 코드는 클로저의 개념을 모르면 파악하기 힘들고 원하지 않는 방향으로 코드를 작성해야 하기에 저는 자바스크립트를 사용해서 클래스를 만들 때는 캡슐화를 포기하는 타협을 보기도 했던 것 같아요.
+
+위 코드는 더 이상 사용할 필요가 없으며 숨겨야하는 속성이나 메서드는 #을 붙여 명시해주기만 하면 됩니다.
+
+```javascript
+class TodoService {
+
+    #todoList = [];
+    
+    getTodoList() {
+        return [...this.#todoList];
+    }
+    
+    ...
+}
+```
+
+위와 같이 코드들을 클래스로 캡슐화하고나면 다음과 같은 이점이 있습니다.
+
+1. 연관된 코드들의 집합
+2. 정보은닉
+
+연관된 코드들을 클래스로 캡슐화하는 행동을 반복하다보면 작성했던 코드를 관심사별로 분류하는 능력이 생기고 절차지향식의 코드를 작성하는 방법에서 그룹화한 객체끼리 협력하는 코드를 만들어 낼 수 있습니다.&#x20;
+
+그리고  숨겨야 하는 데이터에 접근제한자 (#)를 사용하여 외부에서 사용하지 못하게 하는 것은 코드에 개발자의 의도를 전달할 수 있다는 점이 크게 작용한다고 생각해요.
+
+사용하려고 했던 속성 todoList에 접근을 제한하지 않았다면 getTodoList 메서드를 만들어준 의미는 사라질거에요. 원본 데이터에 접근하지 못하게 하는 역할로 만들어준건데 접근할 수 있게 되었으니까요.
+
+이후에 DOM에 관련된 코드는 크게 달라진게 없습니다.
+
+```javascript
+const todoService = new TodoService();
+
 const formElement = document.querySelector('#todoForm');
 const inputElement = document.querySelector('#contentInput');
 const containerElement = document.querySelector('#todoContainer');
@@ -89,7 +136,7 @@ const containerElement = document.querySelector('#todoContainer');
 formElement.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    addTodo(inputElement.value);
+    todoService.addTodo(inputElement.value);
 
     inputElement.value = '';
 
@@ -102,10 +149,10 @@ containerElement.addEventListener('click', (event) => {
 
     switch (targetAction) {
         case 'checkTodo':
-            checkTodo(targetTodoId);
+            todoService.checkTodo(targetTodoId);
             break;
         case 'removeTodo':
-            removeTodo(targetTodoId);
+            todoService.removeTodo(targetTodoId);
             break;
         default:
     }
@@ -114,6 +161,7 @@ containerElement.addEventListener('click', (event) => {
 });
 
 const updateUI = () => {
+    const todoList = todoService.getTodoList();
     containerElement.innerHTML = todoList.map((todo) => {
         const contentTag = todo.finished ? 'del' : 'span';
         return `
@@ -127,49 +175,11 @@ const updateUI = () => {
 }
 ```
 
-상단의 formElement 는 버튼이 클릭되었을 때 submit 이벤트를 감지하고 실행됩니다. 페이지를 리랜더링 하는 submit 이벤트의 전파를 막고 상단에 작성해둔 할일 추가 기능을 연결하였습니다.&#x20;
+TodoService를 객체로 생성하고  각각의 이벤트는 todoService 객체에서 공개된 인터페이스(여기서는 메서드) 를 사용하여 작업을 수행하도록 바뀌었습니다.
 
-containerElement 요소는 단순히 클릭 이벤트가 일어 났을 때 이벤트 버블링을 이용하여 내부의 요소가 자신까지 전파될 때 특정 요소를 조건으로 찾아냅니다. 조건으로 찾아낸 요소에 따라 완료/취소 또는 삭제를 하는 행동 함수를 호출합니다.&#x20;
+이제 나머지 Dom 에 관련된 작업들도 class 로  캡슐화 시켜주면 끝날 것 같나요? 다음 글에서 나머지 코드들도 클래스를 적용해보는 것을 다루도록 하겠습니다.&#x20;
 
-그리고 두 이벤트 모두 작업이 끝날 때 updateUI 라는 함수를 호출하게 되는데 이 함수는 실행되는 시점에 todoList의 값을 조회하여 순회하며 containerElement 요소에 html 요소를 동적으로 그리게 됩니다.
+이번 글에 대한 소스코드는 아래 링크에서 확인해 볼 수 있어요.
 
-위 작업이 끝나게 되면 다음과 일단 투두리스트의 기능은 잘 작동하는 것 같아요.
+{% embed url="https://github.com/dev-goraebap/learn-angular-loosely/tree/ch1.2-class/apps/vanilla-todo" %}
 
-<figure><img src="../.gitbook/assets/제목 없는 동영상 - Clipchamp로 제작.gif" alt=""><figcaption><p>조금 허접하다..</p></figcaption></figure>
-
-기능은 작동하지만 몇가지 불편한 부분들이 있습니다. 할일 도메인을 조작하는 로직과 DOM 요소를 조작하는 로직이 한눈에 구분되지 않는다는 점이죠.
-
-또 걸리는 점은 todoList에 대한 행동 함수들을 잘 만들어 주었지만, DOM을 조작하고 todo 도메인의   기능을 사용하는 로직에서는 이 함수말고도 todoList 배열에 직접 접근이 가능한 상황이에요.
-
-조금 억지를 부려 다음과 같은 행동이 가능하다고 생각할 수 있겠습니다.
-
-```javascript
-let todoList = [];
-
-...
-
-formElement.addEventListener('submit', (event) => {
-    event.preventDefault();
-    
-    // addTodo(inputElement.value); <- 기존 코드
-
-    // todoList 배열에 직접 접근하여 값을 주입
-    // 의도했던저장되는 데이터형태는 객체이나 여기서는 string|undefind 값을 저장
-    // 런타임 환경 이전에는 문제가 되지 않는다.
-    todoList.push(inputElement.value);
-
-    inputElement.value = '';
-
-    updateUI();
-});
-```
-
-이 코드는 처음부터 제가 작성했기 때문에 이렇게 멍청한 실수를 하지는 않겠죠. 하지만 코드가 시간에 비례하여 늘어나고 점점 파악하기 힘들어진다고 하면, 저는 아마도 이런 실수를 할 수도 있다고 생각합니다.
-
-협업을 할 때는 더더욱 문제가 될 수 있겠죠. 코드를 작성한 개발자의 의도가 뭔지 파악해야하고 잘못된 방식으로 기능을 사용할 수 있게 됩니다.
-
-다음 글에서는 할일 도메인을 다루는 부분을 class를 사용하는 방식으로 코드를 변경하고 이 문제를 해결해보도록 할게요. 이번 글에 작성된 소스코드들은 아래 링크에서 확인해 볼 수 있습니다.
-
-{% embed url="https://github.com/dev-goraebap/learn-angular-loosely/tree/ch1.1-function/apps/vanilla-todo" %}
-
-점차 개선되는 방식들도 리파지토리에 태그단위로 분류 해두었으니 참고해주세요!
