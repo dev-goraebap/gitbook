@@ -1,9 +1,10 @@
 ---
+description: 이번 시간에는 DOM 요소 기반의 투두리스트를 만들어볼 예정입니다. 간단하게 작성하고 어떤 문제점이 있는지 알아보도록 할게요.
 layout:
   title:
     visible: true
   description:
-    visible: false
+    visible: true
   tableOfContents:
     visible: true
   outline:
@@ -18,7 +19,7 @@ layout:
 소스코드
 {% endembed %}
 
-이번 시간에는 DOM 요소 기반의 투두리스트를 만들어볼 예정입니다. 먼저 HTML 파일을 확인하면 다음과 같이 사용자 상호작용을 위한 최소한의 마크업만 작성되어있습니다.
+먼저 HTML 파일을 확인하면 다음과 같이 사용자 상호작용을 위한 최소한의 마크업만 작성되어있습니다.
 
 ```html
 ...
