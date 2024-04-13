@@ -11,5 +11,7 @@
 
 ## 🤖 gpt docs
 
+* [JS DOM API](gpt-docs/js-dom-api/README.md)
+  * [CustomEvent](gpt-docs/js-dom-api/customevent.md)
 * [객체지향 프로그래밍](gpt-docs/undefined/README.md)
   * [객체지향 프로그래밍의 정의](gpt-docs/undefined/undefined.md)
