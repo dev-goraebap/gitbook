@@ -13,5 +13,7 @@
 
 * [객체지향 프로그래밍](gpt-docs/oop/README.md)
   * [객체지향 프로그래밍의 정의](gpt-docs/oop/undefined.md)
+  * [자바스크립트의 getter, setter](gpt-docs/oop/class-get-set.md)
+  * [자바스크립트의 접근 제한자](gpt-docs/oop/access-modifier.md)
 * [JS DOM API](gpt-docs/js-dom-api/README.md)
   * [CustomEvent](gpt-docs/js-dom-api/customevent.md)
