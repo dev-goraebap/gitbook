@@ -28,7 +28,7 @@ Getter와 Setter는 객체의 속성을 간접적으로 조작할 수 있게 해
 아래 코드는 ES2022의 새로운 `#` 프라이빗 필드 표기법을 사용한 클래스에서 getter와 setter를 정의하는 방법을 보여줍니다:
 
 ```javascript
-javascriptCopy codeclass Person {
+class Person {
   #firstName;
   #lastName;
 

@@ -19,3 +19,4 @@
 * [JS DOM API](gpt-docs/js-dom-api/README.md)
   * [CustomEvent](gpt-docs/js-dom-api/customevent.md)
   * [customElements](gpt-docs/js-dom-api/customelements.md)
+  * [template, slot](gpt-docs/js-dom-api/template-slot.md)

@@ -21,7 +21,7 @@ layout:
 ES6 이전에는 클로저(closures)를 사용하여 변수를 함수 스코프 내에 숨겨 프라이빗하게 만드는 방식이 일반적이었습니다. 이 방법은 외부에서 접근할 수 없는 변수를 생성함으로써 데이터를 숨기는 데 사용됩니다.
 
 ```javascript
-javascriptCopy codefunction Person(name) {
+function Person(name) {
   var privateName = name;  // 프라이빗 변수
 
   this.getName = function() {
@@ -43,7 +43,7 @@ ES6에서는 `Symbol`과 `WeakMap`을 이용한 방법이 추가적인 방법으
 **Symbol 예제**
 
 ```javascript
-javascriptCopy codeconst privateName = Symbol('name');
+const privateName = Symbol('name');
 
 class Person {
   constructor(name) {
@@ -63,7 +63,7 @@ console.log(person[privateName]); // 직접 접근할 수 없음
 **WeakMap 예제**
 
 ```javascript
-javascriptCopy codeconst privateProperties = new WeakMap();
+const privateProperties = new WeakMap();
 
 class Person {
   constructor(name) {
@@ -85,7 +85,7 @@ console.log(person.privateProperties); // undefined, 외부에서 접근 불가
 ES2022에서는 클래스 필드에 `#`을 사용하여 프라이빗 필드를 정의할 수 있게 되었습니다. 이것은 JavaScript에 명시적인 접근 제한자를 제공하는 첫 번째 기능이며, 이전의 방법들보다 간단하고 명확합니다.
 
 ```javascript
-javascriptCopy codeclass Person {
+class Person {
   #name;
 
   constructor(name) {

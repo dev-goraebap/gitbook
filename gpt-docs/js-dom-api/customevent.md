@@ -28,7 +28,7 @@ layout:
 다음은 `CustomEvent`를 생성하고 사용하는 기본적인 예시 코드입니다:
 
 ```javascript
-javascriptCopy code// CustomEvent 객체 생성
+// CustomEvent 객체 생성
 const myEvent = new CustomEvent('myEvent', {
   detail: { message: 'Hello, this is a custom event!' }
 });
