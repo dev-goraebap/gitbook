@@ -20,3 +20,5 @@
   * [CustomEvent](gpt-docs/js-dom-api/customevent.md)
   * [customElements](gpt-docs/js-dom-api/customelements.md)
   * [template, slot](gpt-docs/js-dom-api/template-slot.md)
+  * [document.createElement](gpt-docs/js-dom-api/document.createelement.md)
+  * [HTMLElement](gpt-docs/js-dom-api/htmlelement.md)
