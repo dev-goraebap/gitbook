@@ -8,6 +8,7 @@
 * [1. DOM 기반의 투두리스트 만들기](from-js-to-angular/dom.md)
 * [2. 코드에서 할일 도메인 로직 추출하기](from-js-to-angular/split-domain-logic.md)
 * [3. 도메인 로직 캡슐화](from-js-to-angular/encapsulation-domain-logic.md)
+* [4. 웹 컴포넌트 만들기](from-js-to-angular/web-component.md)
 
 ## 🤖 gpt docs
 
