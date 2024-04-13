@@ -4,6 +4,8 @@ description: 도메인 로직을 캡슐화하고 어떤 이점이 있는지 알�
 
 # 3. 도메인 로직 캡슐화
 
+{% embed url="https://github.com/dev-goraebap/from-js-to-angular/tree/ch1.3-domain-encapsulation" %}
+
 ### 기존 코드의 문제점
 
 할일 도메인을 다루는 코드의 일부 내용을 살펴볼게요. 아래 generateId와 todoList 변수들 입니다.
