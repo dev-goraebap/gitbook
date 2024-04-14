@@ -1,12 +1,7 @@
 ---
-cover: .gitbook/assets/anton-dmitriev-comp1-0-01-15-02.jpg
-coverY: 0
 layout:
-  cover:
-    visible: true
-    size: hero
   title:
-    visible: false
+    visible: true
   description:
     visible: false
   tableOfContents:
@@ -17,6 +12,6 @@ layout:
     visible: true
 ---
 
-# 🖐️ docs.goraebap
+# 🫥 Hello, strangers
 
-{% embed url="https://github.com/dev-goraebap" %}
+<figure><img src=".gitbook/assets/e7f9d6efd9914f69adaeb5101d803227 (1).jpg" alt=""><figcaption></figcaption></figure>

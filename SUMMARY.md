@@ -1,6 +1,6 @@
 # Table of contents
 
-* [🖐️ docs.goraebap](README.md)
+* [🫥 Hello, strangers](README.md)
 
 ## 👾 웹 컴포넌트 기반의 투두리스트 <a href="#web-component-based-todo" id="web-component-based-todo"></a>
 
