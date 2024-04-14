@@ -130,7 +130,7 @@ this.attachShadow({ mode: 'open' });
 this.shadowRoot.appendChild(form);
 ```
 
-위 부분은 웹 컴포넌트를 만들기 위한 기술 중 하나인[ Shadow Dom](web-component.md) 을 사용하는 부분입니다.&#x20;
+위 부분은 웹 컴포넌트를 만들기 위한 기술 중 하나인 [Shadow Dom ](../gpt-docs/js-dom-api/shadow-dom.md)을 사용하는 부분입니다.&#x20;
 
 위 클래스는 [HTMLElement ](../gpt-docs/js-dom-api/htmlelement.md)라는 클래스를 상속하는 클래스이자 할일을 생성하는 요소를 제공하는데 초점을 맞추었습니다. 자바스크립트 표준 클래스를 상속하기 때문에 최종적으로 [customElements.define](../gpt-docs/js-dom-api/customelements.md)을 통해 등록하게 되면 다음과 같이 새로운 웹 컴포넌트를 만들어 낼 수 있습니다.
 
