@@ -87,20 +87,22 @@ class AddTodoComponent extends HTMLElement {
 
     constructor() {
         super();
+
         const form = document.createElement('form');
         form.onsubmit = (event) => this.#onSubmit(event);
 
         const input = document.createElement('input');
         input.name = 'content';
         input.placeholder = '할일을 입력해 주세요';
-        
+
         const button = document.createElement('button');
         button.textContent = '생성';
 
         form.appendChild(input);
         form.appendChild(button);
 
-        this.appendChild(form);
+        this.attachShadow({ mode: 'open' });
+        this.shadowRoot.appendChild(form);
     }
 
     #onSubmit(event) {
@@ -121,6 +123,15 @@ class AddTodoComponent extends HTMLElement {
 customElements.define('add-todo', AddTodoComponent);
 ```
 
+작성된 클래스를 살표보면 다음과 같은 조금 낯선 부분이 있습니다.
+
+```javascript
+this.attachShadow({ mode: 'open' });
+this.shadowRoot.appendChild(form);
+```
+
+위 부분은 웹 컴포넌트를 만들기 위한 기술 중 하나인[ Shadow Dom](web-component.md) 을 사용하는 부분입니다.&#x20;
+
 위 클래스는 [HTMLElement ](../gpt-docs/js-dom-api/htmlelement.md)라는 클래스를 상속하는 클래스이자 할일을 생성하는 요소를 제공하는데 초점을 맞추었습니다. 자바스크립트 표준 클래스를 상속하기 때문에 최종적으로 [customElements.define](../gpt-docs/js-dom-api/customelements.md)을 통해 등록하게 되면 다음과 같이 새로운 웹 컴포넌트를 만들어 낼 수 있습니다.
 
 ```javascript
@@ -132,6 +143,14 @@ customElements.define('add-todo', AddTodoComponent);
 // js file
 const addTodoComponent = document.createElement('add-todo');
 document.body.appendChild(addTodoComponent);
+
+// 생성자 주입이 필요할 경우
+const 생성자 = customElements.get('add-todo');
+document.body.appendChild(new 생성자());
 ```
 
-<mark style="background-color:yellow;">\*\* 위에서 설명한</mark> <mark style="background-color:yellow;"></mark><mark style="background-color:yellow;">`customElement`</mark> <mark style="background-color:yellow;"></mark><mark style="background-color:yellow;">구현 방식에서는</mark> <mark style="background-color:yellow;"></mark><mark style="background-color:yellow;">`shadowRoot`</mark><mark style="background-color:yellow;">에 대한 언급이 누락되었는데, 이 역시 웹 컴포넌트를 다루는 데 매우 중요한 기술 중 하나입니다. 현재 커리큘럼에서는 이 기능을 포함하지 않았지만, 이는 과정에 지장을 주지 않습니다. 추후에 기회가 되면</mark> <mark style="background-color:yellow;"></mark><mark style="background-color:yellow;">`shadowRoot`</mark><mark style="background-color:yellow;">와 관련된 내용도 자세히 다루어 볼 예정입니다.</mark>
+### 마무리
+
+이전에 작성한 DOM 관련 로직중에 할일을 생성하는 부분의 로직을 웹 컴포넌트 방식으로 만들어보았습니다. 아직 보여드리지 않은 코드들도 소스코드에서 확인해보실 수 있는데, 한 파일에 많은 코드들이 작성되었기 때문에 다음 시간에 이 코드들을 es6의 모듈 시스템을 활용하여 클래스별로 파일을 분리하는 방법을 추가하여 설명하도록 하겠습니다.
+
+{% embed url="https://github.com/dev-goraebap/from-js-to-angular/tree/ch1.4-web-component" %}
