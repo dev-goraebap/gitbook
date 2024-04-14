@@ -57,3 +57,78 @@ todoFormElement.addEventListener('submit', event => {
 클래스로 코드를 캡슐화하는 것이 DOM을 접근하고 이벤트를 처리하는 데 필수적이라고는 생각하지 않습니다. 그러나 HTML이 이벤트 처리에 필요한 요소만을 포함하지 않는다는 점이 문제입니다. 이를 해결하기 위해선, 단일 책임 원칙을 고려해야 합니다. 예를 들어, `TodoService`는 할일 데이터와 그 데이터를 조작하는 행위들을 모아 쉽게 클래스로 구현할 수 있었습니다. 이는 할일 도메인을 다루는 한 가지 역할만 수행하기 때문입니다.
 
 개발에 정답이 없듯이, 단일 책임의 해석도 개발자마다 다를 수 있습니다. 제가 `TodoService`를 만든 방식은 개인적인 아이디어와 경험, 다양한 사례를 바탕으로 한 것입니다. DOM 로직을 리팩토링하여 의미 있는 클래스로 만드는 것도 중요한 포인트입니다. 할일 도메인과는 다르게, DOM은 주로 어떻게 보여질지와 어떤 이벤트를 처리할지에 초점을 맞춥니다. 따라서 기존의 DOM을 다루는 코드를 클래스로 구현할 때는 HTML 태그들도 클래스에서 담당해야 할 역할의 일부가 되어야 합니다. 이는 웹 컴포넌트를 만드는 방식을 근거로 볼 수 있습니다.
+
+### 코드 살펴보기
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO ⚗️</title>
+    <link rel="stylesheet" href="./style.css">
+    <script defer src="./index.js"></script>
+</head>
+<body>
+
+</body>
+</html>
+```
+
+HTML의 body 태그 내부의 내용을 모두 비워줍니다. 관련된 내용들 모두 자바스크립트에서 [커스텀 엘리먼트](../gpt-docs/js-dom-api/customelements.md)를 통해 생성할 예정입니다.
+
+form 태그를 작성했던 부분과 form 의 submit 이벤트를 핸들링 하던 부분은 다음과 같이 하나의 클래스로 묶을 수 있습니다.
+
+```javascript
+class AddTodoComponent extends HTMLElement {
+
+    constructor() {
+        super();
+        const form = document.createElement('form');
+        form.onsubmit = (event) => this.#onSubmit(event);
+
+        const input = document.createElement('input');
+        input.name = 'content';
+        input.placeholder = '할일을 입력해 주세요';
+        
+        const button = document.createElement('button');
+        button.textContent = '생성';
+
+        form.appendChild(input);
+        form.appendChild(button);
+
+        this.appendChild(form);
+    }
+
+    #onSubmit(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+        const content = formData.get('content').trim();
+
+        const addEvent = new CustomEvent('ADD_TODO', {
+            detail: content
+        });
+        document.dispatchEvent(addEvent);
+
+        event.target.reset();
+    }
+}
+
+customElements.define('add-todo', AddTodoComponent);
+```
+
+위 클래스는 [HTMLElement ](../gpt-docs/js-dom-api/htmlelement.md)라는 클래스를 상속하는 클래스이자 할일을 생성하는 요소를 제공하는데 초점을 맞추었습니다. 자바스크립트 표준 클래스를 상속하기 때문에 최종적으로 [customElements.define](../gpt-docs/js-dom-api/customelements.md)을 통해 등록하게 되면 다음과 같이 새로운 웹 컴포넌트를 만들어 낼 수 있습니다.
+
+```javascript
+// html file
+<add-todo></add-todo>
+
+// or
+
+// js file
+const addTodoComponent = document.createElement('add-todo');
+document.body.appendChild(addTodoComponent);
+```
+
