@@ -56,7 +56,7 @@ todoFormElement.addEventListener('submit', event => {
 
 위 코드를 보면 알 수 있듯이 TodoService와는 다르게 화면에 보여주어야할 태그와 그 태그의 이벤트를 제어하는 로직이 분리되어있다는 것입니다. html 파일로 분리된 것이 나쁜 건 아니지만 저 html 파일에는 form 을 제외한 다른 태그들도 존재하고, 모든 태그들이 작성되는 곳이기 때문에 같은 폴더 내에 필요한 html 파일만 따로 가지고 있지 않는 한 연관된 기능들만 캡슐화가 되어있다고 판단하긴 어려운 것 같습니다.
 
-이를 해결하기 위해선, 단일 책임 원칙을 고려해야 합니다. 예를 들어, `TodoService`는 할일 데이터와 그 데이터를 조작하는 행위들을 모아 쉽게 클래스로 구현할 수 있었습니다. 이는 할일 도메인을 다루는 한 가지 역할만 수행하기 때문입니다.
+이를 해결하기 위해선, [단일 책임 원칙](../gpt-docs/oop/solid.md)을 고려해야 합니다. 예를 들어, `TodoService`는 할일 데이터와 그 데이터를 조작하는 행위들을 모아 쉽게 클래스로 구현할 수 있었습니다. 이는 할일 도메인을 다루는 한 가지 역할만 수행하기 때문입니다.
 
 개발에 정답이 없듯이, 단일 책임의 해석도 개발자마다 다를 수 있습니다. 제가 `TodoService`를 만든 방식은 개인적인 아이디어와 경험, 다양한 사례를 바탕으로 한 것입니다. DOM 로직을 리팩토링하여 의미 있는 클래스로 만드는 것도 중요한 포인트입니다. 할일 도메인과는 다르게, DOM은 주로 어떻게 보여질지와 어떤 이벤트를 처리할지에 초점을 맞춥니다. 따라서 기존의 DOM을 다루는 코드를 클래스로 구현할 때는 HTML 태그들도 클래스에서 담당해야 할 역할의 일부가 되어야 합니다. 이는 웹 컴포넌트를 만드는 방식을 근거로 볼 수 있습니다.
 
@@ -134,3 +134,4 @@ const addTodoComponent = document.createElement('add-todo');
 document.body.appendChild(addTodoComponent);
 ```
 
+<mark style="background-color:yellow;">\*\* 위에서 설명한</mark> <mark style="background-color:yellow;"></mark><mark style="background-color:yellow;">`customElement`</mark> <mark style="background-color:yellow;"></mark><mark style="background-color:yellow;">구현 방식에서는</mark> <mark style="background-color:yellow;"></mark><mark style="background-color:yellow;">`shadowRoot`</mark><mark style="background-color:yellow;">에 대한 언급이 누락되었는데, 이 역시 웹 컴포넌트를 다루는 데 매우 중요한 기술 중 하나입니다. 현재 커리큘럼에서는 이 기능을 포함하지 않았지만, 이는 과정에 지장을 주지 않습니다. 추후에 기회가 되면</mark> <mark style="background-color:yellow;"></mark><mark style="background-color:yellow;">`shadowRoot`</mark><mark style="background-color:yellow;">와 관련된 내용도 자세히 다루어 볼 예정입니다.</mark>
