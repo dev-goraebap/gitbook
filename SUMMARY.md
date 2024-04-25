@@ -2,6 +2,11 @@
 
 * [🫥 Hello, strangers](README.md)
 
+## 🍪 portfolio
+
+* [✨ Meta LInk](portfolio/meta-link/README.md)
+  * [요구사항 분석](portfolio/meta-link/undefined.md)
+
 ## 👾 웹 컴포넌트 기반의 투두리스트 <a href="#web-component-based-todo" id="web-component-based-todo"></a>
 
 * [0. 소개하기](web-component-based-todo/intro.md)
@@ -9,10 +14,6 @@
 * [2. 코드에서 할일 도메인 로직 추출하기](web-component-based-todo/split-domain-logic.md)
 * [3. 도메인 로직 캡슐화](web-component-based-todo/encapsulation-domain-logic.md)
 * [4. 웹 컴포넌트 만들기](web-component-based-todo/web-component.md)
-
-## 🛠️ 프로젝트 배포 가이드 <a href="#deploy-guide" id="deploy-guide"></a>
-
-* [Let's Encrypt, Nginx](deploy-guide/lets-encrypt-nginx.md)
 
 ## 🤖 gpt docs
 
