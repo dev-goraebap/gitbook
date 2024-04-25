@@ -7,13 +7,13 @@
 * [✨ Meta LInk](portfolio/meta-link/README.md)
   * [요구사항 분석](portfolio/meta-link/undefined.md)
 
-## 👾 웹 컴포넌트 기반의 투두리스트 <a href="#web-component-based-todo" id="web-component-based-todo"></a>
+## 👾 laboratory
 
-* [0. 소개하기](web-component-based-todo/intro.md)
-* [1. DOM 기반의 투두리스트 만들기](web-component-based-todo/make-based-element.md)
-* [2. 코드에서 할일 도메인 로직 추출하기](web-component-based-todo/split-domain-logic.md)
-* [3. 도메인 로직 캡슐화](web-component-based-todo/encapsulation-domain-logic.md)
-* [4. 웹 컴포넌트 만들기](web-component-based-todo/web-component.md)
+* [🐫 웹 컴포넌트](laboratory/intro/README.md)
+  * [1. DOM 기반의 투두리스트 만들기](laboratory/intro/make-based-element.md)
+  * [2. 코드에서 할일 도메인 로직 추출하기](laboratory/intro/split-domain-logic.md)
+  * [3. 도메인 로직 캡슐화](laboratory/intro/encapsulation-domain-logic.md)
+  * [4. 웹 컴포넌트 만들기](laboratory/intro/web-component.md)
 
 ## 🤖 gpt docs
 

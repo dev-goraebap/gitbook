@@ -70,7 +70,7 @@ class TodoService {
 
 이전에 할일에 관련된 로직들이 TodoService라는 클래스 내부에 코드가 위치하게 되었습니다.&#x20;
 
-generateId 와 todoList 속성명에 [#키워드를 붙여 외부에서 접근할 수 없게](../gpt-docs/oop/access-modifier.md) 만들었습니다. 덕분에 외부에서는 숨긴 속성들에 접근하지 못하기 때문에 값을 잘못 조작하는 일은 발생하지 않는데요.  그렇다면 todoList 값에 접근하여 화면을 랜더링하는 부분은 어떻게 할 수 있는 걸까요.&#x20;
+generateId 와 todoList 속성명에 [#키워드를 붙여 외부에서 접근할 수 없게](../../gpt-docs/oop/access-modifier.md) 만들었습니다. 덕분에 외부에서는 숨긴 속성들에 접근하지 못하기 때문에 값을 잘못 조작하는 일은 발생하지 않는데요.  그렇다면 todoList 값에 접근하여 화면을 랜더링하는 부분은 어떻게 할 수 있는 걸까요.&#x20;
 
 ```javascript
 get todoList() {
@@ -83,7 +83,7 @@ getTodoList() {
 }
 ```
 
-소스코드 7번째 줄에 get todoList 라는 함수가 작성되어있는데, 이 값은 todoList 속성을 반환합니다. 조금 특별한 방식인데 [자바스크립트에서 제공하는 getter, setter](../gpt-docs/oop/class-get-set.md) 함수를 작성하는 방법입니다. getter 함수는 setter가 없을 경우 값을 읽기전용으로 제공하기 때문에 이 값을 수정할 수 없습니다.&#x20;
+소스코드 7번째 줄에 get todoList 라는 함수가 작성되어있는데, 이 값은 todoList 속성을 반환합니다. 조금 특별한 방식인데 [자바스크립트에서 제공하는 getter, setter](../../gpt-docs/oop/class-get-set.md) 함수를 작성하는 방법입니다. getter 함수는 setter가 없을 경우 값을 읽기전용으로 제공하기 때문에 이 값을 수정할 수 없습니다.&#x20;
 
 getter를 쓰지 않고 일반 메서드로 값을 제공한다면 리턴값에 접근하여 값을 수정하는 것이 가능한데, 위와 같이 새로운 배열을 만들어 반환하면 원본 값을 수정할 수 없기 때문에 똑같은 효과를 줄 수 있죠.&#x20;
 

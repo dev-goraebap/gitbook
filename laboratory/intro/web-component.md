@@ -14,7 +14,7 @@ description: >-
 document.createElement('요소이름');
 ```
 
-[위 메서드](../gpt-docs/js-dom-api/document.createelement.md)를 통해 반환받는 객체들은 모두 [`HTMLElement`](../gpt-docs/js-dom-api/htmlelement.md) 클래스를 상속받는 서브클래스입니다. 이는 우리가 일반적으로 HTML에서 사용하는 태그나 요소들이 클래스로 정의되어 있다는 의미입니다. 이를 바탕으로 DOM 조작 로직을 클래스로 구현한다면, 점진적으로 기능적으로 완성도 높은 클래스 구조를 만들어낼 수 있습니다. 이러한 접근은 자바스크립트의 웹 컴포넌트 표준에 점점 더 가까워지게 만듭니다.
+[위 메서드](../../gpt-docs/js-dom-api/document.createelement.md)를 통해 반환받는 객체들은 모두 [`HTMLElement`](../../gpt-docs/js-dom-api/htmlelement.md) 클래스를 상속받는 서브클래스입니다. 이는 우리가 일반적으로 HTML에서 사용하는 태그나 요소들이 클래스로 정의되어 있다는 의미입니다. 이를 바탕으로 DOM 조작 로직을 클래스로 구현한다면, 점진적으로 기능적으로 완성도 높은 클래스 구조를 만들어낼 수 있습니다. 이러한 접근은 자바스크립트의 웹 컴포넌트 표준에 점점 더 가까워지게 만듭니다.
 
 제가 클래스 기반으로 코드를 수정한 예제는 아래 GitHub 링크에서 확인하실 수 있습니다.
 
@@ -30,7 +30,7 @@ MDN에서 웹 컴포넌트에 대해 자세히 다루고 있지만 GPT를 통해
 
 1. **쉐도우 DOM**: 쉐도우 DOM을 사용하면 스타일과 스크립트가 메인 페이지의 나머지 부분과 격리되어, 웹 컴포넌트의 내부 구조가 외부로부터 독립적으로 유지됩니다. 이는 컴포넌트가 다른 페이지 요소와 스타일 충돌 없이 사용될 수 있게 합니다.
 2. **HTML 템플릿**: `<template>`과 `<slot>` 태그는 HTML 코드를 템플릿화하여 필요할 때마다 인스턴스화할 수 있게 합니다. 이 템플릿을 사용하여 복잡한 사용자 인터페이스를 한 번 정의하고, 여러 위치에서 재사용할 수 있습니다.
-3. [**커스텀 엘리먼트**](../gpt-docs/js-dom-api/customelements.md): 개발자는 `customElements` API를 사용하여 새로운 HTML 태그를 정의할 수 있습니다. 이를 통해 기존 HTML 요소를 확장하거나 완전히 새로운 요소를 만들어, 웹 애플리케이션의 유지보수성과 코드의 가독성을 향상시킬 수 있습니다.
+3. [**커스텀 엘리먼트**](../../gpt-docs/js-dom-api/customelements.md): 개발자는 `customElements` API를 사용하여 새로운 HTML 태그를 정의할 수 있습니다. 이를 통해 기존 HTML 요소를 확장하거나 완전히 새로운 요소를 만들어, 웹 애플리케이션의 유지보수성과 코드의 가독성을 향상시킬 수 있습니다.
 
 이 중에서 우리는 웹 컴포넌트의 핵심 기술인 커스텀 엘리먼트를 활용하여 웹 표준에 부합하는 컴포넌트를 직접 만들어 볼 예정입니다.
 
@@ -56,7 +56,7 @@ todoFormElement.addEventListener('submit', event => {
 
 위 코드를 보면 알 수 있듯이 TodoService와는 다르게 화면에 보여주어야할 태그와 그 태그의 이벤트를 제어하는 로직이 분리되어있다는 것입니다. html 파일로 분리된 것이 나쁜 건 아니지만 저 html 파일에는 form 을 제외한 다른 태그들도 존재하고, 모든 태그들이 작성되는 곳이기 때문에 같은 폴더 내에 필요한 html 파일만 따로 가지고 있지 않는 한 연관된 기능들만 캡슐화가 되어있다고 판단하긴 어려운 것 같습니다.
 
-이를 해결하기 위해선, [단일 책임 원칙](../gpt-docs/oop/solid.md)을 고려해야 합니다. 예를 들어, `TodoService`는 할일 데이터와 그 데이터를 조작하는 행위들을 모아 쉽게 클래스로 구현할 수 있었습니다. 이는 할일 도메인을 다루는 한 가지 역할만 수행하기 때문입니다.
+이를 해결하기 위해선, [단일 책임 원칙](../../gpt-docs/oop/solid.md)을 고려해야 합니다. 예를 들어, `TodoService`는 할일 데이터와 그 데이터를 조작하는 행위들을 모아 쉽게 클래스로 구현할 수 있었습니다. 이는 할일 도메인을 다루는 한 가지 역할만 수행하기 때문입니다.
 
 개발에 정답이 없듯이, 단일 책임의 해석도 개발자마다 다를 수 있습니다. 제가 `TodoService`를 만든 방식은 개인적인 아이디어와 경험, 다양한 사례를 바탕으로 한 것입니다. DOM 로직을 리팩토링하여 의미 있는 클래스로 만드는 것도 중요한 포인트입니다. 할일 도메인과는 다르게, DOM은 주로 어떻게 보여질지와 어떤 이벤트를 처리할지에 초점을 맞춥니다. 따라서 기존의 DOM을 다루는 코드를 클래스로 구현할 때는 HTML 태그들도 클래스에서 담당해야 할 역할의 일부가 되어야 합니다. 이는 웹 컴포넌트를 만드는 방식을 근거로 볼 수 있습니다.
 
@@ -78,7 +78,7 @@ todoFormElement.addEventListener('submit', event => {
 </html>
 ```
 
-HTML의 body 태그 내부의 내용을 모두 비워줍니다. 관련된 내용들 모두 자바스크립트에서 [커스텀 엘리먼트](../gpt-docs/js-dom-api/customelements.md)를 통해 생성할 예정입니다.
+HTML의 body 태그 내부의 내용을 모두 비워줍니다. 관련된 내용들 모두 자바스크립트에서 [커스텀 엘리먼트](../../gpt-docs/js-dom-api/customelements.md)를 통해 생성할 예정입니다.
 
 form 태그를 작성했던 부분과 form 의 submit 이벤트를 핸들링 하던 부분은 다음과 같이 하나의 클래스로 묶을 수 있습니다.
 
@@ -130,9 +130,9 @@ this.attachShadow({ mode: 'open' });
 this.shadowRoot.appendChild(form);
 ```
 
-위 부분은 웹 컴포넌트를 만들기 위한 기술 중 하나인 [Shadow Dom ](../gpt-docs/js-dom-api/shadow-dom.md)을 사용하는 부분입니다.&#x20;
+위 부분은 웹 컴포넌트를 만들기 위한 기술 중 하나인 [Shadow Dom ](../../gpt-docs/js-dom-api/shadow-dom.md)을 사용하는 부분입니다.&#x20;
 
-위 클래스는 [HTMLElement ](../gpt-docs/js-dom-api/htmlelement.md)라는 클래스를 상속하는 클래스이자 할일을 생성하는 요소를 제공하는데 초점을 맞추었습니다. 자바스크립트 표준 클래스를 상속하기 때문에 최종적으로 [customElements.define](../gpt-docs/js-dom-api/customelements.md)을 통해 등록하게 되면 다음과 같이 새로운 웹 컴포넌트를 만들어 낼 수 있습니다.
+위 클래스는 [HTMLElement ](../../gpt-docs/js-dom-api/htmlelement.md)라는 클래스를 상속하는 클래스이자 할일을 생성하는 요소를 제공하는데 초점을 맞추었습니다. 자바스크립트 표준 클래스를 상속하기 때문에 최종적으로 [customElements.define](../../gpt-docs/js-dom-api/customelements.md)을 통해 등록하게 되면 다음과 같이 새로운 웹 컴포넌트를 만들어 낼 수 있습니다.
 
 ```javascript
 // html file
