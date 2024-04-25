@@ -10,6 +10,10 @@
 * [3. 도메인 로직 캡슐화](web-component-based-todo/encapsulation-domain-logic.md)
 * [4. 웹 컴포넌트 만들기](web-component-based-todo/web-component.md)
 
+## 🛠️ 프로젝트 배포 가이드 <a href="#deploy-guide" id="deploy-guide"></a>
+
+* [Let's Encrypt, Nginx](deploy-guide/lets-encrypt-nginx.md)
+
 ## 🤖 gpt docs
 
 * [객체지향 프로그래밍](gpt-docs/oop/README.md)
@@ -24,7 +28,3 @@
   * [document.createElement](gpt-docs/js-dom-api/document.createelement.md)
   * [HTMLElement](gpt-docs/js-dom-api/htmlelement.md)
   * [Shadow Dom](gpt-docs/js-dom-api/shadow-dom.md)
-
-## 🛠️ 프로젝트 배포 가이드 <a href="#deploy-guide" id="deploy-guide"></a>
-
-* [Let's Encrypt, Nginx](deploy-guide/lets-encrypt-nginx.md)
