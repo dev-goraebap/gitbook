@@ -5,7 +5,7 @@
 ## 🍪 portfolio
 
 * [✨ Meta Link](portfolio/meta-link/README.md)
-  * [요구사항 분석](portfolio/meta-link/undefined.md)
+  * [요구사항 분석](portfolio/meta-link/requirements.md)
 
 ## 👾 laboratory
 
