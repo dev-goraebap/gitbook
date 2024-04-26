@@ -23,3 +23,5 @@ layout:
 3. 추출한 식별자를 통해 회원을 조회한다.&#x20;
    1. 회원이 존재하지 않다면 예외 처리한다.&#x20;
    2. 회원이 존재한다면 회원의 일부 데이터를 제공해준다.
+
+<img src="../../../.gitbook/assets/file.excalidraw (2).svg" alt="" class="gitbook-drawing">
