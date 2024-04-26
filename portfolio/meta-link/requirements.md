@@ -17,7 +17,7 @@ layout:
 1. 회원
    1. [회원 가입을 통해 계정을 생성할 수 있어야 한다.](undefined/undefined.md)
    2. [로그인을 통해 생성된 계정에 접근할 수 있어야 한다.](undefined/undefined.md)
-   3. 자신의 일부 정보를 볼 수 있어야 한다.
+   3. [자신의 일부 정보를 볼 수 있어야 한다.](https://app.gitbook.com/o/WgNOYUrHrab7S1aB9l5N/s/uI0XIhcGxtvC1BLQtXVB/\~/changes/63/portfolio/meta-link/undefined/undefined-1)
    4. 자신의 일부 정보를 수정할 수 있어야 한다.
    5. 자신의 계정을 탈퇴할 수 있어야 한다.
 2. 게시물
