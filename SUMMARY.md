@@ -7,7 +7,7 @@
 * [✨ Meta Link](portfolio/meta-link/README.md)
   * [요구사항 분석](portfolio/meta-link/requirements.md)
   * [유즈케이스 정의](portfolio/meta-link/undefined/README.md)
-    * [회원가입](portfolio/meta-link/undefined/undefined.md)
+    * [회원가입, 로그인](portfolio/meta-link/undefined/undefined.md)
 
 ## 👾 laboratory
 
