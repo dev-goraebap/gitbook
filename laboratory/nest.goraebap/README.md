@@ -21,7 +21,7 @@ nestjs를 사용하면서 자주 사용되는 모듈과 기능들을 npm package
 ### 기능
 
 1. auth 모듈 ->
-   1. [local-auth](https://github.com/dev-goraebap/nest-goraebap/tree/develop/src/libs/auth-manager/local) -> 시험 단계 완료
+   1. [local-auth](local-auth-module.md) -> 시험 단계 완료
    2. [jwt-auth](https://github.com/dev-goraebap/nest-goraebap/tree/develop/src/libs/auth-manager/jwt) -> 토큰 발급 완료, 인증 미구현
    3. oauth -> 제공 예정
 2. 이벤트 통신 모듈 -> 제공 예정
