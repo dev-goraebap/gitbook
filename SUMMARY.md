@@ -19,6 +19,7 @@
   * [4. 웹 컴포넌트 만들기](laboratory/intro/web-component.md)
 * [🍰 nest.goraebap](laboratory/nest.goraebap/README.md)
   * [Local Auth Module ✨](laboratory/nest.goraebap/local-auth-module.md)
+  * [Jwt Auth Module ✨](laboratory/nest.goraebap/jwt-auth-module.md)
 
 ## 🤖 gpt docs
 
