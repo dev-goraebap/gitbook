@@ -17,9 +17,7 @@
   * [2. 코드에서 할일 도메인 로직 추출하기](laboratory/intro/split-domain-logic.md)
   * [3. 도메인 로직 캡슐화](laboratory/intro/encapsulation-domain-logic.md)
   * [4. 웹 컴포넌트 만들기](laboratory/intro/web-component.md)
-* [🍰 nest.goraebap](laboratory/nest.goraebap/README.md)
-  * [Local Auth Module ✨](laboratory/nest.goraebap/local-auth-module.md)
-  * [Jwt Auth Module ✨](laboratory/nest.goraebap/jwt-auth-module.md)
+* [🍰 nest.goraebap](laboratory/nest.goraebap.md)
 
 ## 🤖 gpt docs
 
