@@ -254,11 +254,11 @@ Third Party 로그인 페이지 이동 및 코드를 통한 토큰 발급, 토�
 
 이 때 클라이언트가 웹 사이트인지 모바일 애플리케이션인지 판단하고 조건에 따라  postMessage / customScheme 방식으로 응답값을 반환합니다.
 
-<img src="../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw.svg" alt="" class="gitbook-drawing">
 
 2. <mark style="background-color:purple;">Implicit Grant Flow</mark> ( 이 예제에서 다루는 것은 Implicit Grant 의 의미와 정확히 맞는 예제는 아닙니다. 1번과 구분을 짓기 위해 이 명명을 사용하였습니다 )
 
 1번의 경우와 다르게 클라이언트(모바일)는  네이티브 플러그인을 통해 사용자 단말기의 다른 네이티브 앱에 로그인하여 바로 엑세스토큰을 발급받은 상태입니다. 그렇기 때문에 API를 통해 토큰을 바로 전달할 수 있는 상태가 되며 서버는 해당 토큰으로 바로 필요한 데이터 요청을 한다던가 추가 작업을 완료하고 데이터를 반환하기만 하면 됩니다.
 
-<img src="../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
+<img src="../../.gitbook/assets/file.excalidraw (1).svg" alt="" class="gitbook-drawing">
 
