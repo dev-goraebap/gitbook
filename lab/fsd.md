@@ -1,7 +1,7 @@
 ---
 layout:
   title:
-    visible: false
+    visible: true
   description:
     visible: false
   tableOfContents:
@@ -12,5 +12,5 @@ layout:
     visible: true
 ---
 
-# 객체지향 프로그래밍
+# FSD에 관하여
 
