@@ -97,29 +97,37 @@ _제가 완독한지 얼마 안되는 책 중의 하나인 **디자인패턴의 
 
 ### Slice (슬라이스)
 
-슬라이스는 기능 분할 디자인에서 두 번째 수준의 조직 계층 구조입니다. 슬라이스는 애플리케이션의 **비즈니스 도메인**에 따라 만들어집니다. 때문에 슬라이스의 이름은 애플리케이션의 **비즈니스 도메인**에 따라 직접 결정되므로 표준화되어 있지 않습니다. (개발자가 직접 정의)
+**슬라이스**는 기능 분할 디자인에서 두 번째 수준의 조직 계층 구조입니다. 슬라이스는 애플리케이션의 **비즈니스 도메인**에 따라 만들어 집니다. 즉 프로젝트의 요구사항에 따라 생기기 때문에 이름의 규칙이 정해지지 않고, 개발자가 직접 작성하게 됩니다.
 
-모든 레이어들은 하위 폴더로 슬라이스 들을 가지지만 예외로 **app, shared 레이어**는 슬라이스를 가지지 않습니다. **shared**에는 비즈니스 로직이 전혀 포함되어 있지 않으므로 의미가 없고, **app**에는 전체 애플리케이션과 관련된 코드만 포함되어야 하므로 슬라이스가필요하지 않기 때문입니다.
+_\*\*모든 레이어들은 하위 폴더로 슬라이스 들을 가지지만 예외로 **app, shared 레이어**는 슬라이스를 가지지 않습니다. **shared**에는 비즈니스 로직이 전혀 포함되어 있지 않으므로 의미가 없고, **app**에는 전체 애플리케이션과 관련된 코드만 포함되어야 하므로 슬라이스가 필요하지 않기 때문입니다._
 
-본문: [https://feature-sliced.design/docs/reference/slices-segments#slices](https://feature-sliced.design/docs/reference/slices-segments#slices)
+### 밀접한 슬라이스들 그룹화 <mark style="color:red;">(주의!  내용이 정확하지 않을 수 있음)</mark>
 
-위 비즈니스 도메인이라는 부분이 정말 애매한 내용인데, 일단 비즈니스 도메인의 정의 자체도 확실한 단어가 없어서 제가 찾아봤을 때 제일 유사한 단어는 **비슷한 업무의 집합**으로 생각하는것이 합리적이라고 판단했습니다. 애플리케이션에서 구현해야할 요구사항의 기능 또는 개념의 집합인 것이죠.&#x20;
+<figure><img src="../.gitbook/assets/graphic-nested-slices-b9c44e6cc55ecdbf3e50bf40a61e5a27.svg" alt=""><figcaption></figcaption></figure>
 
-**제가 오해하고 다른 개발팀원들에게 잘못 설명했던 부분에 대해서 정정을 해야할 것 같습니다.**&#x20;
+위 이미지는 [공식문서 ](https://feature-sliced.design/docs/reference/slices-segments#slices) 제공되고 있습니다. 조금 이해하기 힘든 부분인데, **features**는 레이어이기 때문에 하위에 **post**가 슬라이스가 되어야 하는게 맞다고 생각됩니다.&#x20;
 
-`photo`, `create-album`, `gallery-page`, `post`, `add-user-to-friends`, `news-feed`
+**post**가 슬라이스가 맞다면 하위에는 세그먼트들 (**ui, model, lib, api**) 등이 위치해야하는데, 그렇지 않고 게시물이라는 비즈니스 도메인의 기능들이 위치하게 됩니다.&#x20;
 
-위 항목 모두 공식 문서에서는 슬라이스라고 표현하고 있습니다. 위 예제는 제가 생각했던 것과 조금 다르지만, 공식문서가 그렇다고 하니.. 타협점을 찾는다면 다음과 같이 볼 수 있습니다.&#x20;
+제가 이해하기로는 **compose, like, delete** 들은 FSD가 말하는 슬라이스 들이며, 이들은 게시물이라는 비즈니스 도메인에 밀접하게 관련된 슬라이스 들이기 때문에 **post**라는 슬라이스로 그룹화 할 수 있다는 걸로 보입니다.
 
-{% hint style="success" %}
+대신 붉은 이름의 파일에 취소선이 그어진 부분처럼 위 post 슬라이스 내부의 슬라이스들은 **레이어 참조 규칙에** 따라 **서로 코드를 공유해서는 안됩니다.**
+
+### 슬라이스에 대한 고찰
+
+**위 예처럼 FSD에서는 다음과 같은 모듈들이 슬라이스라고 이야기 하고 있습니다.**
+
+<mark style="background-color:blue;">photo</mark>, <mark style="background-color:purple;">create-album</mark>, <mark style="background-color:orange;">gallery-page</mark>, <mark style="background-color:red;">post</mark>, <mark style="background-color:green;">add-user-to-friends</mark>, <mark style="background-color:blue;">news-feed</mark>
+
 **photo :** 자체적으로도 비즈니스 도메인이 될 수 있음
 
-**create-album :** 행동이 포함되어 있지만 album이라는 비즈니스 도메인을 포함하니까 이 부분도 맞을 수 있다고 생각함..
+**create-album :** album이라는 비즈니스 도메인에 종속된 기능, **밀접한 슬라이스 그룹화**에 따라 album 폴더 하위로 분류될 수 있음
 
-**gellery-page** **:** gellery 라는 비즈니스 도메인에 관한 것을 알 수 있음
+**gellery-page** **:**  gellery 라는 비즈니스 도메인에 관련된 페이지
 
-**add-user-to-friends :** 행동이 포함되어 있지만 팔로우/팔로잉  이라는 비즈니스 도메인을 나타내고 있음
+**add-user-to-friends :** **팔로우/팔로잉** 이라는 비즈니스 도메인에 종속된 기능으로 볼 수 있음. 밀접한 슬라이스 그룹화에 따라 **fallow** 폴더 하위로 분류될 수 있음
 
-**news-feed :** 자체적으로 비즈니스 도메인이 될 수 있음
-{% endhint %}
+**news-feed :** news-feed 자체가 비즈니스 도메인이거나 news라는 비즈니스 도메인을 조회하는 **위젯** 또는 **엔티티**가 될 수 있음
+
+**저는 위 내용에 애매한 내용이 있다고 생각합니다.**&#x20;
 
