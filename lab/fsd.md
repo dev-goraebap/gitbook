@@ -40,7 +40,7 @@ layout:
 
 **Feature Slided Design** 이하 **기능 분할 설계** 는 프런트엔드 애플리케이션을 스캐폴딩하기 위한 아키텍처 방법론입니다. 간단히 말해, 코드 구성에 관한 규칙과 규칙의 모음입니다. 이 방법론의 주된 목적은 끊임없이 변화하는 비즈니스 요구사항에 맞서 프로젝트를 더 이해하기 쉽고 체계적으로 만드는 것입니다.
 
-## FSD의  계층 구조
+## FSD의  계층 구조와 규칙 💎
 
 대부분의 프론트엔드 프로젝트의 폴더 구조를 봤을 때 **src 폴더** 하위부터 작업하는 소스코드의 영역이므로 계층의 시작점은 src 폴더를 기본 경로로 잡고 시작한다고 생각합니다.
 
@@ -71,7 +71,7 @@ layout:
 
 _각 레이어의 역할은 가장 마지막에 **슬라이스**와 **세그먼트**를 포함하여 다루도록 하겠습니다._
 
-### 레이어 참조규칙 ✨ <a href="#import-rule-on-layers" id="import-rule-on-layers"></a>
+### 레이어 참조 규칙 ✨ <a href="#import-rule-on-layers" id="import-rule-on-layers"></a>
 
 **레이어**의 참조 규칙을 설명하려면 레이어들은 각각 **슬라이스**로 구성된다는 것을 알아야합니다. 슬라이스에 대해서는 아래에서 다루지만, 일단 **레이어 하위의 폴더들**이라고 생각해주세요.&#x20;
 
@@ -93,9 +93,13 @@ _원문_ [_https://feature-sliced.design/docs/reference/layers#import-rule-on-la
 
 ### Slice (슬라이스)
 
-**슬라이스**는 기능 분할 디자인에서 두 번째 수준의 조직 계층 구조입니다. 슬라이스는 애플리케이션의 **비즈니스 도메인**에 따라 만들어 집니다. 즉 프로젝트의 요구사항에 따라 생기기 때문에 레이어처럼 사전에 명명되어있지 않고 **비즈니스 도메인** 에 맞는 이름을 개발자가 직접 작성하게 됩니다.
+**슬라이스**는 기능 분할 디자인에서 두 번째 수준의 조직 계층 구조입니다. **레이어의 하위에 구성**되지만 **app**, **shared 레이어**에서는 제외됩니다.. 자세한 내용은 FSD 응용에서 다루도록 하겠습니다.
 
-{% hint style="info" %}
+슬라이스는 애플리케이션의 **비즈니스 도메인(비슷한 요구사항들의 집합)**에 따라 만들어 집니다. 즉 프로젝트의 요구사항에 따라 생기기 때문에 레이어처럼 표준화되어있지 않고 **비즈니스 도메인** 에 맞는 이름을 개발자가 직접 작성하게 됩니다.
+
+{% hint style="warning" %}
+#### 개인적인 해석
+
 예를 들어 진행하고 있는 프로젝트가 게시판 사이트라면
 
 **인증, 사용자, 게시물, 댓글, 태그, 추천** 등을 비즈니스 도메인들로 분류 할 수 있고 이 명세들이 각각의 슬라이스가 될 수 있습니다.
@@ -103,10 +107,7 @@ _원문_ [_https://feature-sliced.design/docs/reference/layers#import-rule-on-la
 **auth, user, post, comment, tag, recomend ...**
 
 \
-물론 모든 레이어가 위 슬라이스 이름으로 구성되는 것은 아닙니다.&#x20;
-
-* 모든 레이어들은 하위 폴더로 슬라이스들을 가지지만 예외로 **app, shared 레이어는 슬라이스를 가지지 않습니다.** 자세한 내용은 가장 마지막에 다루겠습니다.
-* 공식문서를 보면 도메인에 대한 **단일 도메인 명시(post)** 뿐만 아니라 어떤 레이어에 위치하는지에 따라 **도메인 + 동사 (create-post)**, **도메인 + 명사 (post-list-page)**  등 도메인이 포함되어 있기만 하면 슬라이스라고 하는 것 같습니다.
+물론 모든 슬라이스가 위와 같은 이름으로 구성되는 것은 아닙니다. 공식문서를 보면 도메인에 대한 **단일 도메인 명사(post)** 뿐만 아니라 어떤 레이어에 위치하는지에 따라 **도메인 + 동사 (create-post)**, **도메인 + 명사 (post-list-page)**  등 도메인이 포함되어 있기만 하면 슬라이스라고 하는 것 같습니다.
 {% endhint %}
 
 ### _슬라이스_ 공개 API 규칙 ✨
@@ -115,21 +116,25 @@ _원문_ [_https://feature-sliced.design/docs/reference/layers#import-rule-on-la
 
 공개 API를 만들기 위해서는 슬라이스의 경로에 **index** 파일을 만들어 두는 것 입니다. 외부에서 사용 될 수 있는 파일들만 이 index 파일에 명시하며, 외부에서는 index에 명시되지않은 파일엔 접근할 수 없습니다.&#x20;
 
-이로써 패키지간에 **캡슐화 원칙**을 적용하게 됩니다.
+{% tabs %}
+{% tab title="일반적인 방식" %}
+<figure><img src="../.gitbook/assets/image (11).png" alt=""><figcaption></figcaption></figure>
 
-FSD에서는 슬라이스 공개 API 규칙을 통해 다음과 같은 이점을  달성할 수 있다고 이야기합니다.
+<figure><img src="../.gitbook/assets/image (12).png" alt=""><figcaption><p>entities/user/index.ts</p></figcaption></figure>
+{% endtab %}
 
-{% hint style="info" %}
-1. 애플리케이션은 개별 모듈의 내부 구조가 **변경되지 않도록 보호되어야** 합니다.
-2. 모듈의 내부 구조 처리는 다른 모듈에 **영향을 미치지 않아야** 합니다.
-3.  모듈 동작의 중요한 변경 사항은 **쉽게 감지할 수**있어야 합니다.
+{% tab title="하위 세그먼트들도 index 를 만드는 방식" %}
+<figure><img src="../.gitbook/assets/image (14).png" alt=""><figcaption></figcaption></figure>
 
-    > 모듈**동작의 중대한 변경** - 모듈의 사용자 주체의 기대를 깨는 변경 사항입니다.
+<figure><img src="../.gitbook/assets/image (13).png" alt=""><figcaption><p>entities/user/index.ts</p></figcaption></figure>
+{% endtab %}
+{% endtabs %}
 
+슬라이스 공개 API 규칙에 따라 index 파일은 슬라이스 하위에만 만들어도 되지만, 하위 세그먼트들이 많아진다면 필요에 따라 세그먼트들도 index를 적용하여 좀 더 깔끔하게 관리할 수 있을 것 같습니다.&#x20;
 
+최종적으로 슬라이스의 index에 공개 할 파일을 잘 명시한다면 문제 되지 않기 때문에 각각 작업하는 슬라이스에서 원하는 방식대로 구성을 이뤄도 좋고, 팀간의 규칙을 정해도 문제되지 않을 것 같습니다.
 
-본문: [https://feature-sliced.design/docs/reference/public-api#goals](https://feature-sliced.design/docs/reference/public-api#goals)
-{% endhint %}
+_**필독\*\*** 슬라이스가 없는 레이어의 세그먼트에는 동일한 방식으로 공개 API 정의가 포함되어야 합니다._
 
 ### 밀접한 슬라이스들 그룹화
 
@@ -170,21 +175,55 @@ FSD 공식문서는 **compose, like, delete** 들이 슬라이스라고 말하�
 
 물론 위 세그먼트들 역시 필요할 때 작성하면 됩니다. 어떤 레이어의 슬라이스인지에 따라 세그먼트의 구성이 달라질 수 있습니다.
 
-### 슬라이스에 대한 고찰
+## FSD 응용 🍪
 
-**위 예처럼 FSD에서는 다음과 같은 모듈들이 슬라이스라고 이야기 하고 있습니다.**
+레이어, 슬라이스, 세그먼트를 일반적인 요구사항에서 어떻게 구성할 수 있는지 작성해보겠습니다. 내용에는 제 주관적인 생각도 포함이 되어있습니다.
 
-<mark style="background-color:blue;">photo</mark>, <mark style="background-color:purple;">create-album</mark>, <mark style="background-color:orange;">gallery-page</mark>, <mark style="background-color:red;">post</mark>, <mark style="background-color:green;">add-user-to-friends</mark>, <mark style="background-color:blue;">news-feed</mark>
+{% tabs %}
+{% tab title="app" %}
+하위 레이어에서 사용되지 않는 앱 전체적인 설정들이 위치하는 레이어 입니다. 이 레이어는 슬라이스가 포함되지 않고 세그먼트가 직접 있습니다.
 
-**photo :** 자체적으로도 비즈니스 도메인이 될 수 있음
+#### 세그먼트
 
-**create-album :** album이라는 비즈니스 도메인에 종속된 기능, **밀접한 슬라이스 그룹화**에 따라 album 폴더 하위로 분류될 수 있음
+* 라우팅 설정
+* 전역 스타일
+* 리덕스와 같은 라이브러리를 사용한다면 전역 스토어의 초기화 설정 등
 
-**gellery-page** **:**  gellery 라는 비즈니스 도메인에 관련된 페이지
+{% hint style="warning" %}
+#### 제안
 
-**add-user-to-friends :** **팔로우/팔로잉** 이라는 비즈니스 도메인에 종속된 기능으로 볼 수 있음. 밀접한 슬라이스 그룹화에 따라 **fallow** 폴더 하위로 분류될 수 있음
+![](<../.gitbook/assets/image (15).png>)
 
-**news-feed :** news-feed 자체가 비즈니스 도메인이거나 news라는 비즈니스 도메인을 조회하는 **위젯** 또는 **엔티티**가 될 수 있음
+FSD의 룰을 무조건적으로 따라간다면 app 레이어 하위의 파일들 역시 세그먼트 폴더로 각각 분류해야하지만 프론트엔드 프레임워크가 일반적으로 만들어내는 구조 역시 무시할 수 없습니다. 위 파일들을 FSD의 양식대로 맞추는 것도 리팩토링의 비용이 들어가기 때문에 기본적인 구조는 그대로 두는게 어떤지 생각해봅니다.
+{% endhint %}
+{% endtab %}
 
-**저는 위 내용에 애매한 내용이 있다고 생각합니다.**&#x20;
+{% tab title="pages" %}
+이 계층의 슬라이스들은 라우터와 연결될 UI 구성요소 들이 포함 됩니다. 위젯 레이어와 구성적 특성이 비슷하지만 규모가 더 큽니다.
+
+### 슬라이스
+
+비즈니스 도메인과 관련된 가장 최상위 레이어이기 때문에 슬라이스 이름을 특정 도메인에 따라 깔끔하게 분리하기 힘든 부분이 있습니다.
+
+예를 들어 **home, main, see-more, setting** 등과 관련된 페이지들은 디자인에 따라 발생하기 때문에 이것을 어떤 도메인이라고 보기는 힘들지만, 분명 필요한 페이지인 것은 맞습니다.
+{% endtab %}
+
+{% tab title="widgets" %}
+일반적으로 entities와 features 레이어의 슬라이스들을 조립하는 레이어입니다. 그렇지 않더라도 여러 페이지에서 반복되는 UI, 기능, 페이지와 비슷하지만 모달을 통해 생성되는 컴포넌트들이 위치될 수 있다고 생각됩니다.
+{% endtab %}
+
+{% tab title="features" %}
+요구사항과 관련된 사용자 상호작용 기능들이 위치하는 레이어입니다. 일반적으로 대화형 UI 요소, API를 호출하는 기능(클래스, 함수) 등이 위치합니다.
+{% endtab %}
+
+{% tab title="entities" %}
+요구사항과 관련된 최하위 레이어 입니다. 일반적으로 도메인모델들의 명세(타입, 인터페이스),기능, API, 조회에 관련된 UI 들이 위치합니다.
+{% endtab %}
+
+{% tab title="shared" %}
+프로젝트의 요구사항과 관계가 없는 재사용 모듈, 설정, 라이브러리 들이 위치합니다. 이 레이어는 슬라이스가 포함되어 있지 않습니다. 요구사항(=슬라이스)과 관계가 없는 기능들만 포함해야하기 때문입니다.
+{% endtab %}
+{% endtabs %}
+
+
 
